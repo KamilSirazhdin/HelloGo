@@ -4,5 +4,3 @@ node_modules/
 *.docker
 .Dockerfile
 .dockerignore
-backend/
-frontend/
