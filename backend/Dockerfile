@@ -1,9 +1,20 @@
-FROM golang:1.24
+# backend/Dockerfile
+FROM golang:1.24-alpine
 
-WORKDIR /go
+# Установим необходимые зависимости
+WORKDIR /go/src/app
 
-COPY . /go
+# Копируем исходный код
+COPY . .
 
-EXPOSE 5000
+# Загружаем зависимости
+RUN go mod tidy
 
-CMD ["go", "run", "go.go"]
+# Скомпилируем приложение
+RUN go build -o backend .
+
+# Устанавливаем переменную окружения для MongoDB
+ENV MONGO_URI mongodb://mongo:27017
+
+# Запускаем приложение
+CMD ["./backend"]

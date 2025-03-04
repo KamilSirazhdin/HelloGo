@@ -1,8 +1,15 @@
-FROM node:16
+# frontend/Dockerfile
+FROM node:16-alpine
+
+# Устанавливаем рабочую директорию
 WORKDIR /app
-COPY package.json /app
+
+# Копируем package.json и устанавливаем зависимости
+COPY package*.json ./
 RUN npm install
-COPY . /app
-RUN npm run build
-EXPOSE 3000
+
+# Копируем все остальные файлы
+COPY . .
+
+# Стартуем приложение
 CMD ["npm", "start"]
